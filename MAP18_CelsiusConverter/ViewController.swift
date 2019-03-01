@@ -8,11 +8,24 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDataSource {
+class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    private var temperatureValues = (-100...100).map{$0} //[Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        
+//        for index in -100...100 {
+//            temperatureValues.append(index)
+//        }
+        
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+       // print("row: \(row)")
+        return "\(temperatureValues[row]) C"
     }
     
     
@@ -21,10 +34,18 @@ class ViewController: UIViewController, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-      return 10
+        
+        return temperatureValues.count
     }
     
-
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        let celsius = Double(temperatureValues[row])
+        
+        let fahrenheit = celsius * 1.8 + 32.0
+        
+        print("celsius: \(celsius)  = fahrenheit: \(fahrenheit) ")
+    }
    
 }
 
